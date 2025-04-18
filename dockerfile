@@ -8,8 +8,7 @@ COPY . /app
 
 # Install the application dependencies.
 WORKDIR /app
+ENV PYTHONPATH=/app
 RUN uv sync --frozen --no-cache
 
-EXPOSE 8501
-
-ENTRYPOINT ["uv", "streamlit", "run", "smart_shopper/main.py"]
+ENTRYPOINT ["uv", "run", "src/main.py"]

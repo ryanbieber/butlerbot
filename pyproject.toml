@@ -5,13 +5,17 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "aiohttp>=3.11.16",
+    "beautifulsoup4>=4.13.4",
     "ipykernel>=6.29.5",
     "langchain>=0.3.23",
     "langchain-community>=0.3.21",
     "langchain-openai>=0.3.13",
     "pandera>=0.23.1",
     "polars>=1.27.1",
+    "pre-commit>=4.2.0",
     "psycopg2-binary>=2.9.10",
     "pydantic-settings>=2.8.1",
     "python-telegram-bot>=22.0",
+    "structlog>=25.2.0",
 ]

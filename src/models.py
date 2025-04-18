@@ -6,10 +6,12 @@ from pandera.typing import Series
 import datetime
 from pydantic import BaseModel
 
+
 class Created(Enum):
     """
     Enum representing the created status of a resource.
     """
+
     weather = "weather"
     calendar = "calendar"
     telegram = "telegram"
@@ -20,16 +22,16 @@ class Created(Enum):
     amazon = "amazon"
 
 
-class Tags(Enum):
+class Tags(str, Enum):
     """
     Enum representing the tags used for categorizing resources.
     """
+
     weather = "weather"
     calendar = "calendar"
     telegram = "telegram"
     personal = "personal"
     mail = "mail"
-
 
 
 class Note(BaseModel):
@@ -45,6 +47,7 @@ class Note(BaseModel):
         date (datetime.date): Date when the note was added.
 
     """
+
     id: int
     created: Created
     tags: Tags
@@ -56,10 +59,11 @@ class Note(BaseModel):
         """
         Configuration for the Pydantic model.
         """
+
         use_enum_values = True
         arbitrary_types_allowed = True
-        
-        
+
+
 class NotesTable(pa.DataFrameModel):
     """
     Schema for the notes table.
@@ -73,9 +77,13 @@ class NotesTable(pa.DataFrameModel):
         date (Series[datetime.date]): Date when the note was added.
 
     """
+
     id: Series[int] = pa.Field(nullable=False)
     created: Series[Created] = pa.Field(nullable=False)
     tags: Series[Tags] = pa.Field(nullable=False)
     content: Series[str] = pa.Field(nullable=False)
     created_at: Series[datetime.date] = pa.Field(nullable=False)
     date: Series[datetime.date] = pa.Field(nullable=False)
+
+    class Config:
+        coerce = True
