@@ -20,6 +20,8 @@ BUTLER_DAILY_BUILD_PROMPT = """"
     {appointments}
     3. **Articles**: Summarize the key points from articles you think I might like based on this user profile:
     **{news_profile}**
+    3.1 Do not remove articles that are not relevant to the profile, just summarize them and include a link to the article. Make sure
+    to group like articles together.
     {news}
     4. **ToDos**: Include any notes or reminders that are relevant for the day.
     {todos}
