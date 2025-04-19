@@ -128,6 +128,7 @@ dependencies = [
     { name = "langchain" },
     { name = "langchain-community" },
     { name = "langchain-openai" },
+    { name = "newsapi-python" },
     { name = "pandera" },
     { name = "polars" },
     { name = "pre-commit" },
@@ -145,6 +146,7 @@ requires-dist = [
     { name = "langchain", specifier = ">=0.3.23" },
     { name = "langchain-community", specifier = ">=0.3.21" },
     { name = "langchain-openai", specifier = ">=0.3.13" },
+    { name = "newsapi-python", specifier = ">=0.2.7" },
     { name = "pandera", specifier = ">=0.23.1" },
     { name = "polars", specifier = ">=1.27.1" },
     { name = "pre-commit", specifier = ">=4.2.0" },
@@ -749,6 +751,18 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/83/f8/51569ac65d696c8ecbee95938f89d4abf00f47d58d48f6fbabfe8f0baefe/nest_asyncio-1.6.0.tar.gz", hash = "sha256:6f172d5449aca15afd6c646851f4e31e02c598d553a667e38cafa997cfec55fe", size = 7418 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/a0/c4/c2971a3ba4c6103a3d10c4b0f24f461ddc027f0f09763220cf35ca1401b3/nest_asyncio-1.6.0-py3-none-any.whl", hash = "sha256:87af6efd6b5e897c81050477ef65c62e2b2f35d51703cae01aff2905b1852e1c", size = 5195 },
+]
+
+[[package]]
+name = "newsapi-python"
+version = "0.2.7"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "requests" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/f8/4b/12fb9495211fc5a6d3a96968759c1a48444124a1654aaf65d0de80b46794/newsapi-python-0.2.7.tar.gz", hash = "sha256:a4b66d5dd9892198cdaa476f7542f2625cdd218e5e3121c8f880b2ace717a3c2", size = 7485 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/74/47/e3b099102f0c826d37841d2266e19f1568dcf58ba86e4c6948e2a124f91d/newsapi_python-0.2.7-py2.py3-none-any.whl", hash = "sha256:11d34013a24d92ca7b7cbdac84ed2d504862b1e22467bc2a9a6913a70962318e", size = 7942 },
 ]
 
 [[package]]

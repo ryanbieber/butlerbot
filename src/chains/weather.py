@@ -3,7 +3,7 @@ from __future__ import annotations
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import PromptTemplate
 from llm import llm
-
+from settings import settings
 
 WEATHER_PROMPT = """
 
@@ -14,6 +14,8 @@ WEATHER_PROMPT = """
 
             When you refer to a date, make sure to state the day of week as well.
 
+            {butler_prompt}
+
             {input}
 
             """
@@ -21,6 +23,7 @@ WEATHER_PROMPT = """
 butler_prompt = PromptTemplate(
     template=WEATHER_PROMPT,
     input_variables=["input"],
+    partial_variables={"butler_prompt": settings.BUTLER_PROMPT},
 )
 
 weather_chain = butler_prompt | llm | StrOutputParser()

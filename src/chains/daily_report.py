@@ -4,14 +4,12 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import PromptTemplate
 
 from llm import llm
-
+from settings import settings
 import datetime
 import pytz
 
-
 BUTLER_DAILY_BUILD_PROMPT = """"
-    You are a butler providing a daily morning briefing. Your task is to summarize the following information, make
-    sure to do it in a formal tone. I want to feel like I am in the Victorian era. When referring to me, use Sir:
+    You are a butler providing a daily morning briefing. Your task is to summarize the following information, {butler_prompt}:
 
     Use this list of fun facts to make the summary more interesting:
     {fun_facts}
@@ -20,10 +18,11 @@ BUTLER_DAILY_BUILD_PROMPT = """"
     {weather}
     2. **Tasks**: List the important tasks or appointments for the day.
     {appointments}
-    3. **Articles**: Summarize the key points from your favorite articles, grouped by their source.
+    3. **Articles**: Summarize the key points from articles you think I might like based on this user profile:
+    **{news_profile}**
     {news}
-    4. **Notes**: Include any notes or reminders that are relevant for the day.
-    {notes}
+    4. **ToDos**: Include any notes or reminders that are relevant for the day.
+    {todos}
     5. **Miscellaneous**: Any other relevant information or updates.
     {misc}
     The current date is {current_date}. Use this date to ensure all information is relevant and up-to-date.
@@ -40,8 +39,12 @@ current_date_central = datetime.datetime.now(central_tz).strftime("%Y-%m-%d")
 
 butler_prompt = PromptTemplate(
     template=BUTLER_DAILY_BUILD_PROMPT,
-    input_variables=["fun_facts", "weather", "appointments", "news", "notes", "misc"],
-    partial_variables={"current_date": current_date_central},
+    input_variables=["fun_facts", "weather", "appointments", "news", "todos", "misc"],
+    partial_variables={
+        "current_date": current_date_central,
+        "butler_prompt": settings.BUTLER_PROMPT,
+        "news_profile": settings.USER_PROFILE,
+    },
 )
 
-daily_prompt = butler_prompt | llm | StrOutputParser()
+daily_chain = butler_prompt | llm | StrOutputParser()

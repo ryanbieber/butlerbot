@@ -7,31 +7,25 @@ import datetime
 from pydantic import BaseModel
 
 
-class Created(Enum):
-    """
-    Enum representing the created status of a resource.
-    """
-
-    weather = "weather"
-    calendar = "calendar"
-    telegram = "telegram"
-    personal = "personal"
-    usps = "usps"
-    ups = "ups"
-    fedex = "fedex"
-    amazon = "amazon"
-
-
 class Tags(str, Enum):
     """
-    Enum representing the tags used for categorizing resources.
+    Enum for categorizing resources with tags.
+
+    Attributes:
+        appointment: Represents an appointment-related tag.
+        personal: Represents a personal-related tag.
+        work: Represents a work-related tag.
+        fun_fact: Represents a fun fact-related tag.
+        todo: Represents a to-do-related tag.
+        misc: Represents a miscellaneous-related tag.
     """
 
-    weather = "weather"
-    calendar = "calendar"
-    telegram = "telegram"
-    personal = "personal"
-    mail = "mail"
+    APPOINTMENT = "appointment"
+    PERSONAL = "personal"
+    WORK = "work"
+    FUN_FACT = "fun_fact"
+    TODO = "todo"
+    MISC = "misc"
 
 
 class Note(BaseModel):
@@ -40,7 +34,6 @@ class Note(BaseModel):
 
     Args:
         id (int): Unique identifier for the note.
-        created (Created): The source of the note.
         tags (Tags): Tags associated with the note.
         content (str): Content of the note.
         created_at (datetime.date): Date when the note was created.
@@ -49,7 +42,6 @@ class Note(BaseModel):
     """
 
     id: int
-    created: Created
     tags: Tags
     content: str
     created_at: datetime.date
@@ -70,7 +62,6 @@ class NotesTable(pa.DataFrameModel):
 
     Args:
         id (Series[int]): Unique identifier for the note.
-        created (Series[Created]): The source of the note.
         tags (Series[Tags]): Tags associated with the note.
         content (Series[str]): Content of the note.
         created_at (Series[datetime.date]): Date when the note was created.
@@ -79,7 +70,6 @@ class NotesTable(pa.DataFrameModel):
     """
 
     id: Series[int] = pa.Field(nullable=False)
-    created: Series[Created] = pa.Field(nullable=False)
     tags: Series[Tags] = pa.Field(nullable=False)
     content: Series[str] = pa.Field(nullable=False)
     created_at: Series[datetime.date] = pa.Field(nullable=False)
