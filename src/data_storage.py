@@ -12,7 +12,6 @@ DATA_PATH = Path(__file__).resolve().parent.parent / "data"
 logger = structlog.get_logger(__name__)
 
 
-
 def save_note_to_file(note: Note) -> None:
     """Save a note to a file."""
     # read in old notes file
