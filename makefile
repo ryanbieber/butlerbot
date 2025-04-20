@@ -1,13 +1,22 @@
-# Makefile for managing Docker Compose and PostgreSQL with a local mount
+# Makefile for Docker build and run with auto-restart
 
-DOCKER_COMPOSE_FILE=docker-compose.yml
+IMAGE_NAME=butlerbot
+CONTAINER_NAME=butlerbot
 
-.PHONY: up down
+.PHONY: build run down
 
-# Start Docker Compose services
-up:
-	docker-compose -f $(DOCKER_COMPOSE_FILE) up -d --build --force-recreate
+# Build Docker image
+build:
+	docker build -t $(IMAGE_NAME) .
 
-# Stop Docker Compose services
+# Run container with auto-restart
+run:
+	docker run -d \
+		--name $(CONTAINER_NAME) \
+		--restart always \
+		$(IMAGE_NAME)
+
+# Stop and remove container
 down:
-	docker-compose -f $(DOCKER_COMPOSE_FILE) down
+	docker stop $(CONTAINER_NAME) || true
+	docker rm $(CONTAINER_NAME) || true
